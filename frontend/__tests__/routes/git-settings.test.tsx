@@ -92,6 +92,9 @@ describe("Content", () => {
     await screen.findByTestId("bitbucket-token-input");
     await screen.findByTestId("bitbucket-token-help-anchor");
 
+    await screen.findByTestId("azure-devops-token-input");
+    await screen.findByTestId("azure-devops-token-help-anchor");
+
     getConfigSpy.mockResolvedValue(VALID_SAAS_CONFIG);
     queryClient.invalidateQueries();
     rerender();
@@ -116,6 +119,13 @@ describe("Content", () => {
       ).not.toBeInTheDocument();
       expect(
         screen.queryByTestId("bitbucket-token-help-anchor"),
+      ).not.toBeInTheDocument();
+
+      expect(
+        screen.queryByTestId("azure-devops-token-input"),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("azure-devops-token-help-anchor"),
       ).not.toBeInTheDocument();
     });
   });
@@ -255,6 +265,7 @@ describe("Form submission", () => {
       github: { token: "test-token", host: "" },
       gitlab: { token: "", host: "" },
       bitbucket: { token: "", host: "" },
+      azure_devops: { token: "", host: "" },
     });
   });
 
@@ -276,6 +287,7 @@ describe("Form submission", () => {
       github: { token: "", host: "" },
       gitlab: { token: "test-token", host: "" },
       bitbucket: { token: "", host: "" },
+      azure_devops: { token: "", host: "" },
     });
   });
 
@@ -297,6 +309,29 @@ describe("Form submission", () => {
       github: { token: "", host: "" },
       gitlab: { token: "", host: "" },
       bitbucket: { token: "test-token", host: "" },
+      azure_devops: { token: "", host: "" },
+    });
+  });
+
+  it("should save the Azure DevOps token", async () => {
+    const saveProvidersSpy = vi.spyOn(SecretsService, "addGitProvider");
+    saveProvidersSpy.mockImplementation(() => Promise.resolve(true));
+    const getConfigSpy = vi.spyOn(OpenHands, "getConfig");
+    getConfigSpy.mockResolvedValue(VALID_OSS_CONFIG);
+
+    renderGitSettingsScreen();
+
+    const azureDevOpsInput = await screen.findByTestId("azure-devops-token-input");
+    const submit = await screen.findByTestId("submit-button");
+
+    await userEvent.type(azureDevOpsInput, "test-token");
+    await userEvent.click(submit);
+
+    expect(saveProvidersSpy).toHaveBeenCalledWith({
+      github: { token: "", host: "" },
+      gitlab: { token: "", host: "" },
+      bitbucket: { token: "", host: "" },
+      azure_devops: { token: "test-token", host: "" },
     });
   });
 
