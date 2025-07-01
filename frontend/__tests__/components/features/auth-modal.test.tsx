@@ -28,7 +28,7 @@ describe("AuthModal", () => {
       name: "GITLAB$CONNECT_TO_GITLAB",
     });
     const bitbucketButton = screen.getByRole("button", {
-      name: "BITBUCKET$CONNECT_TO_BITBUCKET",
+      name: "Bitbucket BITBUCKET$CONNECT_TO_BITBUCKET",
     });
     const azureDevOpsButton = screen.getByRole("button", {
       name: "AZURE_DEVOPS$CONNECT_TO_AZURE_DEVOPS",

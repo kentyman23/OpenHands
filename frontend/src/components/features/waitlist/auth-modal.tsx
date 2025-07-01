@@ -7,7 +7,7 @@ import { ModalBody } from "#/components/shared/modals/modal-body";
 import { BrandButton } from "../settings/brand-button";
 import GitHubLogo from "#/assets/branding/github-logo.svg?react";
 import GitLabLogo from "#/assets/branding/gitlab-logo.svg?react";
-import BitbucketLogo from "#/assets/branding/bitbucket-buck?react";
+import BitbucketLogo from "#/assets/branding/bitbucket-logo.svg?react";
 import AzureDevOpsLogo from "#/assets/branding/azure-devops-logo.svg?react";
 import { useAuthUrl } from "#/hooks/use-auth-url";
 import { GetConfigResponse } from "#/api/open-hands.types";
