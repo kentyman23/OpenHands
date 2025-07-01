@@ -18,7 +18,7 @@ describe("AuthModal", () => {
     vi.resetAllMocks();
   });
 
-  it("should render the GitHub and GitLab buttons", () => {
+  it("should render all provider buttons", () => {
     render(<AuthModal githubAuthUrl="mock-url" appMode="saas" />);
 
     const githubButton = screen.getByRole("button", {
@@ -27,9 +27,17 @@ describe("AuthModal", () => {
     const gitlabButton = screen.getByRole("button", {
       name: "GITLAB$CONNECT_TO_GITLAB",
     });
+    const bitbucketButton = screen.getByRole("button", {
+      name: "BITBUCKET$CONNECT_TO_BITBUCKET",
+    });
+    const azureDevOpsButton = screen.getByRole("button", {
+      name: "AZURE_DEVOPS$CONNECT_TO_AZURE_DEVOPS",
+    });
 
     expect(githubButton).toBeInTheDocument();
     expect(gitlabButton).toBeInTheDocument();
+    expect(bitbucketButton).toBeInTheDocument();
+    expect(azureDevOpsButton).toBeInTheDocument();
   });
 
   it("should redirect to GitHub auth URL when GitHub button is clicked", async () => {

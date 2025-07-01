@@ -66,6 +66,8 @@ describe("HomeScreen", () => {
       provider_tokens_set: {
         github: null,
         gitlab: null,
+        bitbucket: null,
+        azure_devops: null,
       },
     });
   });

@@ -617,6 +617,7 @@ fi
             ProviderType.GITHUB: 'github.com',
             ProviderType.GITLAB: 'gitlab.com',
             ProviderType.BITBUCKET: 'bitbucket.org',
+            ProviderType.AZURE_DEVOPS: 'dev.azure.com',
         }
 
         domain = provider_domains[provider]
@@ -642,6 +643,9 @@ fi
                     else:
                         # Access token format: use x-token-auth
                         remote_url = f'https://x-token-auth:{token_value}@{domain}/{repo_name}.git'
+                elif provider == ProviderType.AZURE_DEVOPS:
+                    # For Azure DevOps, use the token as a PAT
+                    remote_url = f'https://{token_value}@{domain}/{repo_name}.git'
                 else:
                     # GitHub
                     remote_url = f'https://{token_value}@{domain}/{repo_name}.git'
